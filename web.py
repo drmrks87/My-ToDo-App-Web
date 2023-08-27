@@ -10,6 +10,11 @@ def add_todo():
         todos.append(todo)
         functions.write_todos(todos)
 
+def edit_todo():
+    todo = st.session_state["edit_todo"] + "\n"
+    todos.append(todo)
+    functions.write_todos(todos)
+
 st.title("My ToDo App")
 st.subheader("This is my ToDo App")
 st.write("This app is to increase your productivity.")
@@ -22,10 +27,15 @@ with col1:
     for index, todo in enumerate(todos):
         checkbox = st.checkbox(todo, key=todo)
         if checkbox:
-            todos.pop(index)
-            functions.write_todos(todos)
-            del st.session_state[todo]
-            st.experimental_rerun()
+            st.error("Do you want to edit or delete this task?")
+            if st.button("Delete"):
+                todos.pop(index)
+                functions.write_todos(todos)
+                del st.session_state[todo]
+                st.experimental_rerun()
+            if st.button("Edit"):
+                todos.pop(index)
+                new_todo = st.text_input(label="Enter new ToDo instead of this ToDo", on_change=edit_todo, key="edit_todo")
 
 with col2:
     st.subheader("Date added:")
