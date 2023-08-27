@@ -2,6 +2,7 @@ import streamlit as st
 from modules import functions
 import time
 
+
 todos = functions.get_todos()
 clock = time.strftime("%d %b %Y")
 
@@ -35,7 +36,8 @@ with col1:
                 st.experimental_rerun()
             if st.button("Edit"):
                 todos.pop(index)
-                new_todo = st.text_input(label="Enter new ToDo instead of this ToDo", on_change=edit_todo, key="edit_todo")
+                new_todo = st.text_input(label="Enter new ToDo instead of this ToDo", on_change=edit_todo,
+                                         key="edit_todo")
 
 with col2:
     st.subheader("Date added:")
